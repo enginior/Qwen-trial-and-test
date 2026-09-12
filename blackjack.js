@@ -217,31 +217,40 @@ dealBtn.addEventListener('click', async () => {
     // Clear hands
     playerHand = [];
     dealerHand = [];
+    playerHandEl.innerHTML = '';
+    dealerHandEl.innerHTML = '';
     
-    // Deal initial cards with animation
     await sleep(500);
     
+    // Deal initial cards: Player, Dealer, Player, Dealer
     // Player's first card
     playerHand.push(dealCard());
-    await renderHands(false);
+    const card1 = createCardElement(playerHand[0]);
+    playerHandEl.appendChild(card1);
     
     await sleep(300);
     
     // Dealer's first card
     dealerHand.push(dealCard());
-    await renderHands(false);
+    const card2 = createCardElement(dealerHand[0]);
+    dealerHandEl.appendChild(card2);
     
     await sleep(300);
     
     // Player's second card
     playerHand.push(dealCard());
-    await renderHands(false);
+    const card3 = createCardElement(playerHand[1]);
+    playerHandEl.appendChild(card3);
     
     await sleep(300);
     
     // Dealer's second card (hidden)
     dealerHand.push(dealCard());
-    await renderHands(false);
+    const card4 = createCardElement(dealerHand[1], true);
+    card4.id = 'hidden-card';
+    dealerHandEl.appendChild(card4);
+    
+    updateScores(false);
     
     // Check for blackjack
     const playerScore = calculateHandValue(playerHand);
